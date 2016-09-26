@@ -1,0 +1,58 @@
+<?php
+    class Flight
+    {
+        private $id;
+        private $flight_number;
+        private $departure_time;
+        private $flight_status;
+
+        function __construct($flight_number, $departure_time, $flight_status, $id = null)
+        {
+            $this->flight_number = $flight_number;
+            $this->departure_time = $departure_time;
+            $this->flight_status = $flight_status;
+            $this->id = $id;
+        }
+//getters & setters
+        function getId()
+        {
+            return $this->id;
+        }
+
+        function getFlightNumber()
+        {
+            return $this->flight_number;
+        }
+
+        function setFlightNumber($new_flight_number)
+        {
+            $this->flight_number = (string) $new_flight_number;
+        }
+
+        function getDepartureTime()
+        {
+            return $this->departure_time;
+        }
+
+        function setDepartureTime($new_departure_time)
+        {
+            $this->departure_time = (string) $new_departure_time;
+        }
+
+        function getFlightStatus()
+        {
+            return $this->flight_status;
+        }
+
+        function setFlightStatus($new_flight_status)
+        {
+            $this->flight_status = (string) $new_flight_status;
+        }
+//methods
+
+
+//static methods
+
+    }
+
+?>
