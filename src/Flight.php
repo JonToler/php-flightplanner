@@ -51,10 +51,34 @@
 //methods
         function save()
         {
-              $GLOBALS['DB']->exec("INSERT INTO flights (flight_number, departure_time, flight_status) VALUES ('{$this->getFlightNumber()}', '{$this->getDepartureTime()}', '{$this->getFlightStatus()}');");
-              $this->id = $GLOBALS['DB']->lastInsertId();
+            $GLOBALS['DB']->exec("INSERT INTO flights (flight_number, departure_time, flight_status) VALUES   ('{$this->getFlightNumber()}', '{$this->getDepartureTime()}',     '{$this->getFlightStatus()}');");
+            $this->id = $GLOBALS['DB']->lastInsertId();
         }
 
+        function update($new_flight_number)
+        {
+            $GLOBALS['DB']->exec("UPDATE flights SET flight_number = '{$new_flight_number}' WHERE id = {$this->getId()};");
+            $this->setFlightNumber($new_flight_number);
+        }
+
+        function delete()
+        {
+            $GLOBALS['DB']->exec("DELETE FROM flights WHERE id = {$this->getId()};");
+        }
+
+
+        static function find($search_id)
+        {
+            $found_flight = null;
+            $flights = Flight::getAll();
+            foreach($flights as $flight) {
+                $flight_id = $flight->getId();
+                if ($flight_id == $search_id) {
+                    $found_flight = $flight;
+                }
+            }
+           return $found_flight;
+        }
 //static methods
         static function getAll()
         {
