@@ -56,11 +56,11 @@
         {
             //Arrange
             $city_name = "JFK";
-            $test_city = new city($city_name);
+            $test_city = new City($city_name);
             $test_city->save(); // id gets created by database and written in during save method.
 
             //Act
-            $result = city::getAll();
+            $result = City::getAll();
 
             //Assert
             $this->assertEquals($test_city, $result[0]);
@@ -72,13 +72,13 @@
             // create more than one city to make sure getAll returns them all.
             $city_name = "JFK";
             $city_name2 = "PDX";
-            $test_city = new city($city_name);
+            $test_city = new City($city_name);
             $test_city->save();
-            $test_city2 = new city($city_name2);
+            $test_city2 = new City($city_name2);
             $test_city2->save();
 
             //Act
-            $result = city::getAll();
+            $result = City::getAll();
 
             //Assert
             $this->assertEquals([$test_city, $test_city2], $result);
@@ -89,19 +89,37 @@
             //Arrange
             $city_name = "PDX";
             $id = 1;
-            $test_city = new city($city_name, $id);
+            $test_city = new City($city_name, $id);
             $test_city->save();
 
             $city_name2 = "JFK";
             $id2 = 2;
-            $test_city2 = new city($city_name2, $id2);
+            $test_city2 = new City($city_name2, $id2);
             $test_city2->save();
 
             //Act
-            $result = city::find($test_city->getId());
+            $result = City::find($test_city->getId());
 
             //Assert
             $this->assertEquals($test_city, $result);
+        }
+        function testDelete()
+        {
+            //Arrange
+            $city_name = "PDX";
+            $id = 1;
+            $test_city = new City($city_name, $id);
+            $test_city->save();
+
+            $city_name2 = "JFK";
+            $id2 = 2;
+            $test_city2 = new City($city_name2, $id2);
+            $test_city2->save();
+            //Act
+            $test_city->delete();
+            $result = City::getAll();
+            //Assert
+            $this->assertEquals([$test_city2], $result);
         }
 
         function test_deleteAll()
@@ -110,14 +128,14 @@
             // create more than one city
             $city_name = "JFK";
             $city_name2 = "PDX";
-            $test_city = new city($city_name);
+            $test_city = new City($city_name);
             $test_city->save();
-            $test_city2 = new city($city_name2);
+            $test_city2 = new City($city_name2);
             $test_city2->save();
 
             //Act
-            city::deleteAll(); // delete them.
-            $result = city::getAll(); // get all to make sure they are gone.
+            City::deleteAll(); // delete them.
+            $result = City::getAll(); // get all to make sure they are gone.
 
             //Assert
             $this->assertEquals([], $result);

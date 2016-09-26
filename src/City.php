@@ -37,7 +37,7 @@
         static function find($search_id)
         {
            $found_city = null;
-           $cities = city::getAll();
+           $cities = City::getAll();
            foreach($cities as $city) {
                $city_id = $city->getId();
                if ($city_id == $search_id) {
@@ -54,10 +54,15 @@
             foreach($returned_cities as $city) {
                 $city_name = $city['city_name'];
                 $id = $city['id'];
-                $new_city = new city($city_name, $id);
+                $new_city = new City($city_name, $id);
                 array_push($cities, $new_city);
             }
             return $cities;
+        }
+
+        function delete()
+        {
+            $GLOBALS['DB']->exec("DELETE FROM Cities WHERE id = {$this->getId()};");
         }
 
         static function deleteAll()
