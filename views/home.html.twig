@@ -11,21 +11,23 @@
 <body>
     <div class="container">
         <h1>Welcome to Flight Planner</h1>
+        <hr>
         <h3>Add a US City!</h3>
         <h5>Put the airport code of a US City:</h5>
-        <form action='/cities' method='post'>
+        <form action='/add_city' method='post'>
             <label for='city_name'>City Airport Code</label>
             <input id='city_name' name='city_name' type='text'>
 
             <button type='submit'>Add city code</button>
         </form>
-        <form action='/delete_cities' method='post'>
+        <form action='/delete_all_cities' method='post'>
             <button type='submit'>Clear</button>
         </form>
+        <hr>
 
         <h3>Add your planned flight!</h3>
         <h5>Input your 6-character flight number (confirmed in your email from the airline):</h5>
-        <form action='/flights' method='post'>
+        <form action='/add_flight' method='post'>
             <label for='flight_number'>Flight Number</label>
             <input id='flight_number' name='flight_number' type='text'>
 
@@ -33,13 +35,13 @@
                 <h6>Departure Airport</h6>
                 <select id="selectCity" name="city_id">
                     {% for city in cities %}
-                        <option value= {{ city.getId }}>{{ city.getName }}</option>
+                        <option value= {{ city.getId }}>{{ city.getCityName }}</option>
                     {% endfor %}
                 </select>
                 <h6>Arrival Airport</h6>
                 <select id="selectCuisine" name="city_id">
                     {% for city in cities %}
-                        <option value= {{ city.getId }}>{{ city.getName }}</option>
+                        <option value= {{ city.getId }}>{{ city.getCityName }}</option>
                     {% endfor %}
                 </select>
             </div>
@@ -58,9 +60,18 @@
 
             <button type='submit'>Add city code</button>
         </form>
-        <form action='/delete_flights' method='post'>
+        <form action='/delete_all_flights' method='post'>
             <button type='submit'>Clear</button>
         </form>
+        <hr>
+        
+        <h4>List of all your flights thus far...</h4>
+        <ul>
+            {% for flight in flights %}
+                <li>{{ flight.getFlightNumber }} departing at {{ flight.getDepartureTime }} with a status that is {{ flight.getFlightStatus }}</li>
+            {% endfor %}
+        </ul>
+
     </div>
 </body>
 </html>

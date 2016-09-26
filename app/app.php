@@ -19,7 +19,16 @@
         return $app['twig']->render('home.html.twig', array('cities' => City::getAll(), 'flights' => Flight::getAll()));
     });
 
+    $app->post("/add_city", function() use ($app) {
+        $new_city_name = new City($_POST['city_name']);
+        $new_city_name->save();
+        return $app->redirect("/");
+    });
 
+    $app->post("/delete_all_cities", function() use ($app) {
+        City::deleteAll();
+        return $app->redirect("/");
+    });
 
     return $app;
  ?>
