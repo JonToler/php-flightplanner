@@ -15,7 +15,11 @@
 
     class FlightTest extends PHPUnit_Framework_TestCase
     {
-
+        protected function tearDown()
+        {
+            Flight::deleteAll();
+        }
+// Test your getters and setters.
         function test_getFlightNumber()
         {
             //Arrange
@@ -118,7 +122,6 @@
             $this->assertEquals($new_flight_status, $result);
         }
 
-        // Test your getters and setters.
         function test_getId()
         {
             //Arrange
@@ -133,6 +136,61 @@
 
             //Assert
             $this->assertEquals($id, $result); //make sure id returned is the one we put in, not null.
+        }
+
+        function test_save()
+        {
+            //Arrange
+            $flight_number = "AUX345";
+            $departure_time = "11:23:00";
+            $flight_status = "ON-TIME";
+            $test_flight = new Flight($flight_number, $departure_time, $flight_status);
+            $test_flight->save();
+            //Act
+            $result = Flight::getAll();
+            //Assert
+            $this->assertEquals($test_flight, $result[0]);
+        }
+
+        function test_getAll()
+        {
+            //Arrange
+            // create more than one flight to make sure getAll returns them all.
+            $flight_number = "AUX345";
+            $departure_time = "11:23:00";
+            $flight_status = "ON-TIME";
+            $test_flight = new Flight($flight_number, $departure_time, $flight_status);
+            $test_flight->save();
+            $flight_number2 = "GUT456";
+            $departure_time2 = "12:45:00";
+            $flight_status2 = "DELAYED";
+            $test_flight2 = new Flight($flight_number2, $departure_time2, $flight_status2);
+            $test_flight2->save();
+            //Act
+            $result = Flight::getAll();
+            //Assert
+            $this->assertEquals([$test_flight, $test_flight2], $result);
+        }
+
+        function test_deleteAll()
+        {
+            //Arrange
+            // create more than one flight
+            $flight_number = "AUX345";
+            $departure_time = "11:23:00";
+            $flight_status = "ON-TIME";
+            $test_flight = new Flight($flight_number, $departure_time, $flight_status);
+            $test_flight->save();
+            $flight_number2 = "GUT456";
+            $departure_time2 = "12:45:00";
+            $flight_status2 = "DELAYED";
+            $test_flight2 = new Flight($flight_number2, $departure_time2, $flight_status2);
+            $test_flight2->save();
+            //Act
+            Flight::deleteAll(); // delete them.
+            $result = Flight::getAll(); // get all to make sure they are gone.
+            //Assert
+            $this->assertEquals([], $result);
         }
     }
 ?>
