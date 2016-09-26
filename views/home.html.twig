@@ -52,19 +52,19 @@
 
             <h6>What's your flight status?</h6>
             <select name="flight_status">
-                <option value=1>On time</option>
-                <option value=2>Delayed</option>
-                <option value=3>Cancelled</option>
-                <option value=4>Complete</option>
+                <option value="On time">On time</option>
+                <option value="Delayed">Delayed</option>
+                <option value="Cancelled">Cancelled</option>
+                <option value="Complete">Complete</option>
             </select>
 
-            <button type='submit'>Add city code</button>
+            <button type='submit'>Add flight</button>
         </form>
         <form action='/delete_all_flights' method='post'>
             <button type='submit'>Clear</button>
         </form>
         <hr>
-        
+
         <h4>List of all your flights thus far...</h4>
         <ul>
             {% for flight in flights %}

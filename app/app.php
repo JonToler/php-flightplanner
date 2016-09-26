@@ -30,5 +30,16 @@
         return $app->redirect("/");
     });
 
+    $app->post("/add_flight", function() use ($app){
+        $new_flight = new Flight($_POST['flight_number'], $_POST['departure_time'], $_POST['flight_status']);
+        $new_flight->save();
+        return $app->redirect("/");
+    });
+
+    $app->post("/delete_all_flights", function() use ($app){
+        Flight::deleteAll();
+        return $app->redirect("/");
+    });
+
     return $app;
  ?>
