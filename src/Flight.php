@@ -55,10 +55,10 @@
             $this->id = $GLOBALS['DB']->lastInsertId();
         }
 
-        function update($new_flight_number)
+        function update($new_flight_status)
         {
-            $GLOBALS['DB']->exec("UPDATE flights SET flight_number = '{$new_flight_number}' WHERE id = {$this->getId()};");
-            $this->setFlightNumber($new_flight_number);
+            $GLOBALS['DB']->exec("UPDATE flights SET flight_status = '{$new_flight_status}' WHERE id = {$this->getId()};");
+            $this->setFlightStatus($new_flight_status);
         }
 
         function delete()
@@ -79,6 +79,13 @@
             }
            return $found_flight;
         }
+
+        function addFlightCities($city1, $city2)
+        {
+            $GLOBALS['DB']->exec("INSERT INTO cities_flights (departure_city_id, arrival_city_id, flight_id) VALUES ({$city->getId()}, {$city->getId()}, {$this->getId()});");
+        }
+
+        
 //static methods
         static function getAll()
         {

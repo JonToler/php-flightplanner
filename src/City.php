@@ -69,6 +69,12 @@
         {
           $GLOBALS['DB']->exec("DELETE FROM cities;");
         }
+
+        // function addFlight($flight)
+        // {
+        //     $GLOBALS['DB']->exec("INSERT INTO cities_flights")
+        // }
+
     }
 
 ?>

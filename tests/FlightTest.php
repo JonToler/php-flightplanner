@@ -172,6 +172,24 @@
             $this->assertEquals([$test_flight, $test_flight2], $result);
         }
 
+        function testUpdate()
+        {
+            //Arrange
+            $flight_number = "AUX345";
+            $departure_time = "11:23:00";
+            $flight_status = "ON-TIME";
+            $test_flight = new Flight($flight_number, $departure_time, $flight_status);
+            $test_flight->save();
+
+            $new_flight_status = "DELAYED";
+
+            //Act
+            $test_flight->update($new_flight_status);
+
+            //Assert
+            $this->assertEquals("DELAYED", $test_flight->getFlightStatus());
+        }
+
         function testDelete()
         {
             //Arrange
@@ -210,6 +228,26 @@
             $result = Flight::find($test_flight->getId());
             //Assert
             $this->assertEquals($test_flight, $result);
+        }
+
+        function test_addFlightCities()
+        {
+            //Arrange
+           $name = "Work stuff";
+           $id = 1;
+           $test_category = new Category($name, $id);
+           $test_category->save();
+
+           $description = "File reports";
+           $id2 = 2;
+           $test_task = new Task($description, $id2);
+           $test_task->save();
+
+           //Act
+           $test_category->addTask($test_task);
+
+           //Assert
+           $this->assertEquals($test_category->getTasks(), [$test_task]);
         }
 
         function test_deleteAll()

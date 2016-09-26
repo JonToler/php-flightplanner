@@ -140,5 +140,16 @@
             //Assert
             $this->assertEquals([], $result);
         }
+
+        // function test_getDepartureCityFlights()
+        // {
+        //
+        // }
+
+        // function test_getArrivalCityFlights()
+        // {
+        //
+        // }
+
     }
 ?>
